@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import TreeSourceTable from './Table';
+import TreeSource from './TreeSource';
+import { RunSource } from './RunSource';
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      <TreeSourceTable />
+      <RunSource />
+      <TreeSource />
     </div>
   );
 }

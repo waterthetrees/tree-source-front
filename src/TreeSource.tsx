@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MenuItem, FormControl, Select, Button } from '@mui/material';
+import { Buttons } from './Buttons';
 import usa from './sources/usa';
 import uk from './sources/uk';
 import './Data.css';
@@ -140,47 +141,66 @@ const dataSources = [
 const dataSourceMenuItems = dataSources.map(({ name }, value) => (
   <MenuItem
     key={name}
-    value={value}
+    value={value} 
   >
     {name}
   </MenuItem>
 ));
 
-export default function TreeSourceTable() {
+export default function TreeSource() {
   const [selectedSourceIndex, setSelectedSourceIndex] = useState(0);
-  const {
-    data, columns,
-  } = dataSources[selectedSourceIndex];
-
-  const handleChange = (event: any) => {
-    setSelectedSourceIndex(event.target.value);
-  };
+  const { data, columns } = dataSources[selectedSourceIndex];
 
   return (
     <div className="data">
       <div className="data__menus">
         <div className="data__menus-item">
-          <FormControl sx={{ minWidth: 200, my: 1 }}>
-            <Select
-              variant="filled"
-              labelId="data__select-label"
-              id="data__select"
-              size="small"
-              value={selectedSourceIndex}
-              onChange={handleChange}
-              sx={{
-                width: 300,
-                color: 'primary',
-              }}
-            >
-              {dataSourceMenuItems}
-            </Select>
-          </FormControl>
+          <h1>Country Source</h1>
+          <CountrySelector 
+            selectedSourceIndex={selectedSourceIndex}
+            setSelectedSourceIndex={setSelectedSourceIndex}
+          />
+          
         </div>
       <TreeList data={data} columns={columns} />
     </div>
     </div>
   );
+}
+
+function CountrySelector({
+  selectedSourceIndex, 
+  setSelectedSourceIndex}: any) {
+
+  const handleClick = (event: any) => {
+    setSelectedSourceIndex(event.target.value);
+  };
+  // const handleChange = (event: any) => {
+  //   setSelectedSourceIndex(event.target.value);
+  // };
+  return <Buttons 
+    buttonList={dataSourceMenuItems}
+    handleClick={handleClick}
+    variantDefault="success"
+   />
+  // return (
+  //   <FormControl sx={{ minWidth: 200, my: 1 }}>
+  //     <Select
+  //       variant="filled"
+  //       labelId="data__select-label"
+  //       id="data__select"
+  //       size="small"
+  //       value={selectedSourceIndex}
+  //       onChange={handleChange}
+  //       sx={{
+  //         width: 300,
+  //         color: 'primary',
+  //       }}
+  //     >
+  //       {dataSourceMenuItems}
+  //     </Select>
+  // </FormControl>
+  // )
 }
 
 function TreeList({ data, columns }: any) {
